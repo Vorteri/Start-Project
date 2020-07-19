@@ -1,5 +1,3 @@
-const UpdateNotifier = require('update-notifier');
-
 let project_folder = require("path").basename(__dirname),
   source_folder = "#src";
 
@@ -48,7 +46,8 @@ let { src, dest } = require('gulp'),
   pkg = require('./package.json'),
   svgSprite = require('gulp-svg-sprite'),
   ttf2woff = require('gulp-ttf2woff'),
-  ttf2woff2 = require('gulp-ttf2woff2');
+  ttf2woff2 = require('gulp-ttf2woff2'),
+  rimraf = require('gulp-rimraf');
 
 updateNotifier({ pkg }).notify();
 
@@ -145,6 +144,23 @@ function fonts() {
     .pipe(ttf2woff2())
     .pipe(dest(path.build.fonts))
 }
+
+gulp.task('lastbuild', function () {
+  src('./ht.access')
+    .pipe(dest(path.build.html));
+  return gulp.src([
+    source_folder,
+    project_folder + '/css/style.css',
+    project_folder + '/js/script.js',
+    './package.json',
+    './package-lock.json',
+    './.jshintrc',
+    './.gitignore',
+    './gulpfile.js',
+    './ht.access'
+  ])
+    .pipe(rimraf())
+});
 
 gulp.task('svgSprite', function () {
   return gulp.src([source_folder + '/iconsprite/*.svg'])
