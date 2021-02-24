@@ -1,22 +1,22 @@
 $accent: orange
 $fontsize: 16px
 $textcolor: #333
-$roboto: Roboto, sans-serif
+// font-name: $font: 'Work Sans', sans-serif
 
 @import '../../node_modules/bootstrap/scss/bootstrap-reboot.scss'
+// @import '../../node_modules/bootstrap/scss/bootstrap' bootstrap
 
-
-@mixin font($fname, $fstyle, $fweight, $furl)
+@mixin myfont($font_name, $file_name, $weight, $style)
 	@font-face
-		font-family: $fname
-		font-style: $fstyle
-		font-weight: $fweight
-		src: local($fname), url($furl) format('woff2')
+		font-family: $font_name
+		font-display: swap
+		src: url("../fonts/#{$file_name}.woff") format("woff"), url("../fonts/#{$file_name}.woff2") format("woff2")
+		font-weight: #{$weight}
+		font-style: #{$style}
 
-// @include font('Roboto', normal, 400, '../fonts/roboto-regular-webfont.woff2')
-// @include font('Roboto', italic, 400, '../fonts/roboto-italic-webfont.woff2')
-// @include font('Roboto', normal, 700, '../fonts/roboto-bold-webfont.woff2')
-// @include font('Roboto', italic, 700, '../fonts/roboto-bolditalic-webfont.woff2')
+
+// @include myfont('Work Sans', 'WorkSans-Thin', "100" , "normal")  example
+
 
 // GENERAL DOCUMENT STYLES
 
@@ -35,15 +35,10 @@ input, textarea
 		border-color: green
 
 body
-	font-family: $roboto
+	font-family: $font
 	font-size: $fontsize
 	min-width: 320px
 	position: relative
 	line-height: 1.65
 	overflow-x: hidden
 	color: $textcolor
-
-@mixin res-font($pcSize, $mobSize)
- $addSize: $pcSize - $mobSize;
- $maxWidth: $maxWidth - 320;
- font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
